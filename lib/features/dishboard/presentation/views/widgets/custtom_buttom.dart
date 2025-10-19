@@ -16,6 +16,7 @@ class CusttomButtom extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: TextButton(
+          
           style: TextButton.styleFrom(
             backgroundColor: AppColors.primaryColor,
             shape: RoundedRectangleBorder(

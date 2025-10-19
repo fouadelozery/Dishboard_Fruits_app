@@ -1,11 +1,10 @@
-import 'dart:ffi';
 import 'dart:io';
 
 class AddProductEntity {
   final String name;
   final String code;
   final String description;
-  final String ? imageUrl;
+ String ? imageUrl;
   final num price;
   final File image;
   final bool isFeature;
