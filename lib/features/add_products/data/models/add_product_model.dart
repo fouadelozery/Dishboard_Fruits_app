@@ -9,8 +9,17 @@ class AddProductModel {
   final num price;
   final File image;
   final bool isFeature;
+    final int expireByMonth;
+  bool isOrginic = true;
+  final int numOfCalories;
+  num averageRating = 0;
+  int ratingCount = 0;
+  final int unitAmount;
 
   AddProductModel({
+     required this.expireByMonth,
+    required this.numOfCalories,
+    required this.unitAmount,
     required this.name,
     required this.code,
     required this.description,
@@ -29,6 +38,9 @@ class AddProductModel {
       price: entity.price,
       image: entity.image,
       isFeature: entity.isFeature,
+      expireByMonth: entity.expireByMonth,
+      numOfCalories: entity.numOfCalories,
+      unitAmount: entity.unitAmount,
     );
   }
 
@@ -40,6 +52,9 @@ Map<String, dynamic> toJson() {
     "price": price,
     "imageUrl": imageUrl, 
     "isFeature": isFeature,
+    "expireByMonth": expireByMonth,
+    "numOfCalories": numOfCalories,
+    "unitAmount": unitAmount,
   };
 }
 

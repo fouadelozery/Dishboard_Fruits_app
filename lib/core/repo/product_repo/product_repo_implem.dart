@@ -1,4 +1,4 @@
-// 📄 lib/core/repo/product_repo/product_repo_implem.dart
+
 
 import 'package:dartz/dartz.dart';
 import 'package:dishboard_fruits_app/core/errors/failure.dart';
@@ -16,18 +16,18 @@ class ProductRepoImplem implements ProductRepo {
   @override
   Future<Either<Failure, void>> addProduct(AddProductEntity addProductEntity) async {
     try {
-      print("🟢 Upload success. Image URL: ${addProductEntity.imageUrl}");
-      print("🟢 Saving to DB path: ${Endpoint.addProduct}");
+      print(" ${addProductEntity.imageUrl}");
+      print(": ${Endpoint.addProduct}");
 
       await databaseService.addData(
         path: Endpoint.addProduct,
         data: AddProductModel.fromEntity(addProductEntity).toJson(),
       );
 
-      print("✅ Product saved successfully");
+      print(" Product saved successfully");
       return right(null);
     } catch (e, stacktrace) {
-      print("❌ Error adding product: $e");
+      print(" Error adding product: $e");
       print(stacktrace);
       return left(ServerFailure("Failed to add product: ${e.toString()}"));
     }
