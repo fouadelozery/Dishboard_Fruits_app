@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dishboard_fruits_app/features/add_products/data/models/review_model.dart';
 import 'package:dishboard_fruits_app/features/add_products/domain/entity/add_product_entity.dart';
 
 class AddProductModel {
@@ -10,11 +11,12 @@ class AddProductModel {
   final File image;
   final bool isFeature;
     final int expireByMonth;
-  bool isOrginic = true;
+  bool isOrginic;
   final int numOfCalories;
   num averageRating = 0;
   int ratingCount = 0;
   final int unitAmount;
+  final List<ReviewModel> reviews;
 
   AddProductModel({
      required this.expireByMonth,
@@ -27,6 +29,8 @@ class AddProductModel {
     required this.price,
     required this.image,
     required this.isFeature,
+    required this.isOrginic,
+    required this.reviews
   });
 
   factory AddProductModel.fromEntity(AddProductEntity entity) {
@@ -40,11 +44,12 @@ class AddProductModel {
       isFeature: entity.isFeature,
       expireByMonth: entity.expireByMonth,
       numOfCalories: entity.numOfCalories,
-      unitAmount: entity.unitAmount,
+      unitAmount: entity.unitAmount, isOrginic: entity.isOrginic,
+      reviews: entity.reviews.map((e) => ReviewModel.fromEntity(e)).toList(),
     );
   }
 
-Map<String, dynamic> toJson() {
+ toJson() {
   return {
     "name": name,
     "code": code,
@@ -55,6 +60,8 @@ Map<String, dynamic> toJson() {
     "expireByMonth": expireByMonth,
     "numOfCalories": numOfCalories,
     "unitAmount": unitAmount,
+    "isOrginic": isOrginic,
+    "reviews": reviews.map((e) => e.tojson()).toList(),
   };
 }
 

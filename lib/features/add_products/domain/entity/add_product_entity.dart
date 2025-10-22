@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dishboard_fruits_app/features/add_products/domain/entity/review_entity.dart';
+
 class AddProductEntity {
   final String name;
   final String code;
@@ -14,6 +16,7 @@ class AddProductEntity {
   num averageRating = 0;
   int ratingCount = 0;
   final int unitAmount;
+  final List<ReviewEntity> reviews;
 
   AddProductEntity({
     required this.expireByMonth,
@@ -26,5 +29,6 @@ class AddProductEntity {
     required this.price,
     required this.image,
     required this.isFeature, required bool isOrganic,
+     required this.reviews,
   });
 }
