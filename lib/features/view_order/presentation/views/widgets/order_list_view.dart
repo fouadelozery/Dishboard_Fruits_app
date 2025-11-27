@@ -16,7 +16,7 @@ class OrdersListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final order = orders[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Card(
             color: AppColors.primaryColor,
             shape: RoundedRectangleBorder(
