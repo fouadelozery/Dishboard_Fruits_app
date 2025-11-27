@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:dishboard_fruits_app/core/services/storage_service.dart';
@@ -9,8 +10,10 @@ class SupabaseStorage implements StorageService {
   Future<String> uploadImage(File file, String path) async {
     try {
       final fileExt = p.extension(file.path);
+      log('Uploading image: ${file.path}');
       final fileName = '${DateTime.now().millisecondsSinceEpoch}$fileExt';
       final String filePath = '$path/$fileName';
+      log('Generated file path: $filePath');
       await _supabase.storage
           .from('image')
           .upload(
@@ -21,6 +24,8 @@ class SupabaseStorage implements StorageService {
       final String publicUrl = _supabase.storage
           .from('image')
           .getPublicUrl(filePath);
+
+      log('Image uploaded successfully. Public URL: $publicUrl');
       return publicUrl;
     } on StorageException catch (e) {
       throw Exception('Upload failed: ${e.message}');

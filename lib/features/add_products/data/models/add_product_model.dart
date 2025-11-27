@@ -10,16 +10,17 @@ class AddProductModel {
   final num price;
   final File image;
   final bool isFeature;
-    final int expireByMonth;
+  final int expireByMonth;
   bool isOrginic;
   final int numOfCalories;
   num averageRating = 0;
   int ratingCount = 0;
   final int unitAmount;
   final List<ReviewModel> reviews;
+  final int countSold;
 
   AddProductModel({
-     required this.expireByMonth,
+    required this.expireByMonth,
     required this.numOfCalories,
     required this.unitAmount,
     required this.name,
@@ -30,7 +31,8 @@ class AddProductModel {
     required this.image,
     required this.isFeature,
     required this.isOrginic,
-    required this.reviews
+    required this.reviews,
+    this.countSold = 0,
   });
 
   factory AddProductModel.fromEntity(AddProductEntity entity) {
@@ -44,25 +46,26 @@ class AddProductModel {
       isFeature: entity.isFeature,
       expireByMonth: entity.expireByMonth,
       numOfCalories: entity.numOfCalories,
-      unitAmount: entity.unitAmount, isOrginic: entity.isOrginic,
+      unitAmount: entity.unitAmount,
+      isOrginic: entity.isOrginic,
       reviews: entity.reviews.map((e) => ReviewModel.fromEntity(e)).toList(),
     );
   }
 
- toJson() {
-  return {
-    "name": name,
-    "code": code,
-    "description": description,
-    "price": price,
-    "imageUrl": imageUrl, 
-    "isFeature": isFeature,
-    "expireByMonth": expireByMonth,
-    "numOfCalories": numOfCalories,
-    "unitAmount": unitAmount,
-    "isOrginic": isOrginic,
-    "reviews": reviews.map((e) => e.tojson()).toList(),
-  };
-}
-
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "code": code,
+      "description": description,
+      "price": price,
+      "imageUrl": imageUrl,
+      "isFeature": isFeature,
+      "expireByMonth": expireByMonth,
+      "numOfCalories": numOfCalories,
+      "unitAmount": unitAmount,
+      "countSold": countSold,
+      "isOrginic": isOrginic,
+      "reviews": reviews.map((e) => e.toJson()).toList(),
+    };
+  }
 }

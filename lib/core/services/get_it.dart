@@ -6,6 +6,8 @@ import 'package:dishboard_fruits_app/core/services/database_service.dart';
 import 'package:dishboard_fruits_app/core/services/fire_store_services.dart';
 import 'package:dishboard_fruits_app/core/services/storage_service.dart';
 import 'package:dishboard_fruits_app/core/services/supbase_storage.dart';
+import 'package:dishboard_fruits_app/features/view_order/domain/repos/order_repo.dart';
+import 'package:dishboard_fruits_app/features/view_order/domain/repos/order_repo_imp.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -14,9 +16,11 @@ void setupGetIt() {
   getIt.registerSingleton<StorageService>(SupabaseStorage());
   getIt.registerSingleton<DatabaseService>(FireStoreServices());
 
-
   getIt.registerSingleton<ImageRepo>(ImageRepoImp(getIt.get<StorageService>()));
   getIt.registerSingleton<ProductRepo>(
     ProductRepoImplem(getIt.get<DatabaseService>()),
+  );
+  getIt.registerLazySingleton<OrderRepo>(
+    () => OrderRepoImp(getIt.get<FireStoreServices>()),
   );
 }

@@ -39,7 +39,7 @@ class ReviewModel {
      
     );
   }
-  tojson() {
+  Map<String, dynamic> toJson() {
       return {
         "reviewerName": reviewerName,
         "comment": comment,
