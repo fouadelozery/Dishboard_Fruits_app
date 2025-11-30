@@ -12,19 +12,17 @@ class OrderRepoImp implements OrderRepo {
   OrderRepoImp(this.databaseService);
 
   @override
-  Future<Either<Failure, List<OrderEntity>>> fetchOrders() async {
+  Stream<Either<Failure, List<OrderEntity>>> fetchOrders() async* {
     try {
-      final result = await databaseService.getData(path: Endpoint.getOrders);
-
-      List<OrderEntity> orders =
-          (result as List<dynamic>)
-                  .map((e) => OrderModel.fromJson(e).toEntity())
-                  .toList()
-              as List<OrderEntity>;
-
-      return Right(orders);
+      await for (var (result as List<Map<String, dynamic>>)
+          in databaseService.streamData(path: Endpoint.getOrders)) {
+        final orders = (result as List)
+            .map((json) => OrderModel.fromJson(json).toEntity())
+            .toList();
+        yield Right(orders);
+      }
     } catch (e) {
-      return Left(ServerFailure("failed to fetch orders"));
+      yield Left(ServerFailure("Failed to fetch orders: $e"));
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:dishboard_fruits_app/core/services/get_it.dart';
 import 'package:dishboard_fruits_app/features/view_order/cubits/fetch_order/fetch_order_cubit.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/repos/order_repo.dart';
 import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_view_body.dart';
+import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_view_body_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class OrderView extends StatelessWidget {
             ),
           ),
         ),
-        body: OrderViewBody(),
+        body: OrderViewBodyBlocBuilder(),
       ),
     );
   }

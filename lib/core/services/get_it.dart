@@ -21,6 +21,6 @@ void setupGetIt() {
     ProductRepoImplem(getIt.get<DatabaseService>()),
   );
   getIt.registerLazySingleton<OrderRepo>(
-    () => OrderRepoImp(getIt.get<FireStoreServices>()),
+    () => OrderRepoImp(getIt.get<DatabaseService>()),
   );
 }

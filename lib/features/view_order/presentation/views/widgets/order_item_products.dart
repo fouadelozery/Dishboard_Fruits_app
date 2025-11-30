@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dishboard_fruits_app/core/helper/utiles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/order_product_entity.dart';
@@ -43,7 +44,7 @@ class OrderItemProduct extends StatelessWidget {
             radius: 22,
             backgroundColor: Colors.grey[200],
             backgroundImage: product.imageUrl.isNotEmpty
-                ? NetworkImage(product.imageUrl)
+                ? CachedNetworkImageProvider(product.imageUrl)
                 : null,
             child: product.imageUrl.isEmpty
                 ? const Icon(Icons.image_not_supported)

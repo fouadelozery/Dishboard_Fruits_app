@@ -1,3 +1,4 @@
+import 'package:dishboard_fruits_app/core/e_num/order_enum.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/addressing_shipping_entity.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/order_product_entity.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/order_entity.dart';
@@ -54,5 +55,6 @@ OrderEntity getDummyOrder() {
     addressingShippingEntity: addressingShippingEntity,
     orderProduct: orderProducts,
     payMethods: "online",
+    status: OrderStatusEnum.accepted,
   );
 }

@@ -20,11 +20,11 @@ class FireStoreServices implements DatabaseService {
   @override
   Future<dynamic> getData({
     required String path,
-    String? uid,
+    String? docId,
     Map<String, dynamic>? query,
   }) async {
-    if (uid != null) {
-      var docSnapshot = await firestore.collection(path).doc(uid).get();
+    if (docId != null) {
+      var docSnapshot = await firestore.collection(path).doc(docId).get();
       return docSnapshot.data();
     }
 
@@ -49,5 +49,35 @@ class FireStoreServices implements DatabaseService {
 
     var data = await firestore.collection(path).get();
     return data.docs.map((doc) => doc.data()).toList();
+  }
+
+  @override
+  Stream<List<Map<String, dynamic>>> streamData({
+    required String path,
+    Map<String, dynamic>? query,
+  }) async* {
+    Query queryRef = firestore.collection(path);
+
+    if (query != null) {
+      if (query.containsKey('orderBy')) {
+        queryRef = queryRef.orderBy(
+          query['orderBy'],
+          descending: query['descending'] ?? false,
+        );
+      }
+
+      if (query.containsKey('limit')) {
+        final limit = query['limit'];
+        if (limit != null && limit > 0) {
+          queryRef = queryRef.limit(limit);
+        }
+      }
+    }
+
+    await for (var snapshot in queryRef.snapshots()) {
+      yield snapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
+    }
   }
 }

@@ -17,26 +17,25 @@ class OrderItemHeader extends StatelessWidget {
             const Icon(Icons.receipt_long, color: Colors.blue),
             const SizedBox(width: 6),
             Text(
-              "Order:${order.uId}",
+              "Order: ${order.uId.length > 10 ? order.uId.substring(0, 10) : order.uId}",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: Colors.white,
                 fontFamily: "Cairo",
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
-            color: order.payMethods == "cach"
-                ? Colors.green[100]
-                : Colors.blue[300],
+            color: Colors.blue[500],
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
-            order.payMethods == "cach" ? "Cash" : "Online",
+            order.status.name,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,

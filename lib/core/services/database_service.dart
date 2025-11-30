@@ -7,7 +7,11 @@ abstract class DatabaseService {
 
   Future<dynamic> getData({
     required String path,
-    String? uid,
+    String? docId,
+    Map<String, dynamic>? query,
+  });
+  Stream<dynamic> streamData({
+    required String path,
     Map<String, dynamic>? query,
   });
 }

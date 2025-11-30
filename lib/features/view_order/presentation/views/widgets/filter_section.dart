@@ -10,10 +10,10 @@ class FiltterSection extends StatelessWidget {
       children: [
         IconButton(onPressed: () {}, icon: Icon(Icons.filter_b_and_w_sharp)),
         Text(
-          "filter",
+          "Filter",
           style: TextStyle(
             fontFamily: "Cairo",
-            fontSize: 22,
+            fontSize: 26,
             color: AppColors.primaryColor,
           ),
         ),
