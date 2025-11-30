@@ -80,4 +80,13 @@ class FireStoreServices implements DatabaseService {
           .toList();
     }
   }
+
+  @override
+  Future<void> updataData({
+    required String path,
+    required Map<String, dynamic> data,
+    String? id,
+  }) async {
+    await firestore.collection(path).doc(id).update(data);
+  }
 }

@@ -5,7 +5,7 @@ import 'package:dishboard_fruits_app/features/view_order/domain/entities/order_e
 
 abstract class OrderRepo {
   Stream<Either<Failure, List<OrderEntity>>> fetchOrders();
-  Future<Either<Failure, void>> uodateOrder({
+  Future<Either<Failure, void>> updateOrder({
     required OrderStatusEnum state,
     required String orderId,
   });

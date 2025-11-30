@@ -1,10 +1,14 @@
+import 'package:dishboard_fruits_app/core/e_num/order_enum.dart';
 import 'package:dishboard_fruits_app/core/helper/utiles/colors.dart';
+import 'package:dishboard_fruits_app/features/view_order/cubits/update_orders/update_order_cubit.dart';
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/order_entity.dart';
+import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_buttom.dart';
 import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_item_footer.dart';
 import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_item_header.dart';
 import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_item_products.dart';
 import 'package:dishboard_fruits_app/features/view_order/presentation/views/widgets/order_item_shipping_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderEntity order;
@@ -30,6 +34,20 @@ class OrderItem extends StatelessWidget {
             OrderItemFooter(
               totalItems: order.orderProduct.length,
               totalPrice: order.price,
+            ),
+            OrderButton(
+              onAccept: () {
+                context.read<UpdateOrderCubit>().updateOrders(
+                  status: OrderStatusEnum.accepted,
+                  orderId: order.orderId,
+                );
+              },
+              onReject: () {
+                context.read<UpdateOrderCubit>().updateOrders(
+                  status: OrderStatusEnum.canceled,
+                  orderId: order.orderId,
+                );
+              },
             ),
           ],
         ),

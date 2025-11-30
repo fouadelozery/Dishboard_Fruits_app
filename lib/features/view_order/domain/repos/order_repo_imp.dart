@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dishboard_fruits_app/core/e_num/order_enum.dart';
 import 'package:dishboard_fruits_app/core/errors/failure.dart';
 import 'package:dishboard_fruits_app/core/helper/utiles/endpoint.dart';
 import 'package:dishboard_fruits_app/core/services/database_service.dart';
@@ -14,15 +15,38 @@ class OrderRepoImp implements OrderRepo {
   @override
   Stream<Either<Failure, List<OrderEntity>>> fetchOrders() async* {
     try {
-      await for (var (result as List<Map<String, dynamic>>)
-          in databaseService.streamData(path: Endpoint.getOrders)) {
-        final orders = (result as List)
+      // Stream<Map> → List<Map<String, dynamic>>
+      await for (var result in databaseService.streamData(
+        path: Endpoint.getOrders,
+      )) {
+        final orders = result
             .map((json) => OrderModel.fromJson(json).toEntity())
             .toList();
+
         yield Right(orders);
       }
     } catch (e) {
       yield Left(ServerFailure("Failed to fetch orders: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateOrder({
+    required OrderStatusEnum state,
+    required String orderId,
+  }) async {
+    try {
+      await databaseService.updataData(
+        path: Endpoint.updateOrders,
+        id: orderId,
+        data: {
+          "status": state.name, // saved as string: pending / completed ...
+        },
+      );
+
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure("Failed to update order: $e"));
     }
   }
 }
