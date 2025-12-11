@@ -4,7 +4,7 @@ class OrderProductModel {
   final String name;
   final String imageUrl;
   final String code;
-  final num price;
+  final double price;
   final int quantity;
 
   OrderProductModel({
@@ -36,13 +36,24 @@ class OrderProductModel {
     );
   }
 
-  factory OrderProductModel.fromJson(Map<String, dynamic> json) {
+  /// Null-safe fromJson
+  factory OrderProductModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return OrderProductModel.empty();
     return OrderProductModel(
-      name: json['name'],
-      imageUrl: json['imageUrl'],
-      code: json['code'],
-      price: (json['price'] as num),
-      quantity: json['quantity'],
+      name: json['name'] ?? "",
+      imageUrl: json['imageUrl'] ?? "",
+      code: json['code'] ?? "",
+      price: (json['price'] ?? 0).toDouble(),
+      quantity: (json['quantity'] ?? 0).toInt(),
     );
   }
+
+  /// Empty fallback model
+  factory OrderProductModel.empty() => OrderProductModel(
+    name: "",
+    imageUrl: "",
+    code: "",
+    price: 0,
+    quantity: 0,
+  );
 }

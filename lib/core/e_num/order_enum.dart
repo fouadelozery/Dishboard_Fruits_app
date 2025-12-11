@@ -14,21 +14,16 @@ extension OrderEnumColor on OrderStatusEnum {
     switch (this) {
       case OrderStatusEnum.pending:
         return Colors.orange;
-
       case OrderStatusEnum.accepted:
         return Colors.blue;
-
       case OrderStatusEnum.rejected:
         return Colors.red;
-
       case OrderStatusEnum.delivering:
         return Colors.purple;
-
       case OrderStatusEnum.delivered:
         return Colors.green;
       case OrderStatusEnum.canceled:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return Colors.grey; // Added a default color for canceled
     }
   }
 }

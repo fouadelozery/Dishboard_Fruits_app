@@ -1,22 +1,22 @@
 import 'package:dishboard_fruits_app/features/view_order/domain/entities/addressing_shipping_entity.dart';
 
 class AddressingShippingModel {
-  String? fullName;
-  String? phoneNumber;
-  String? address;
-  String? city;
-  String? addressDetails;
-  String? email;
-  String? floor;
+  final String fullName;
+  final String phoneNumber;
+  final String address;
+  final String city;
+  final String addressDetails;
+  final String email;
+  final String floor;
 
   AddressingShippingModel({
-    this.fullName,
-    this.phoneNumber,
-    this.address,
-    this.city,
-    this.addressDetails,
-    this.email,
-    this.floor,
+    required this.fullName,
+    required this.phoneNumber,
+    required this.address,
+    required this.city,
+    required this.addressDetails,
+    required this.email,
+    required this.floor,
   });
 
   @override
@@ -24,15 +24,16 @@ class AddressingShippingModel {
     return '$address $city $floor';
   }
 
-  factory AddressingShippingModel.fromJson(Map<String, dynamic> json) {
+  factory AddressingShippingModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return AddressingShippingModel.empty();
     return AddressingShippingModel(
-      fullName: json['fullName'],
-      phoneNumber: json['phoneNumber'],
-      address: json['address'],
-      city: json['city'],
-      addressDetails: json['addressDetails'],
-      email: json['email'],
-      floor: json['floor'],
+      fullName: json['fullName'] ?? "",
+      phoneNumber: json['phoneNumber'] ?? "",
+      address: json['address'] ?? "",
+      city: json['city'] ?? "",
+      addressDetails: json['addressDetails'] ?? "",
+      email: json['email'] ?? "",
+      floor: json['floor'] ?? "",
     );
   }
 
@@ -48,7 +49,7 @@ class AddressingShippingModel {
     };
   }
 
-  toEntity() {
+  AddressingShippingEntity toEntity() {
     return AddressingShippingEntity(
       fullName: fullName,
       phoneNumber: phoneNumber,
@@ -59,4 +60,15 @@ class AddressingShippingModel {
       floor: floor,
     );
   }
+
+  /// Returns an empty AddressingShippingModel with default values
+  factory AddressingShippingModel.empty() => AddressingShippingModel(
+    fullName: "",
+    phoneNumber: "",
+    address: "",
+    city: "",
+    addressDetails: "",
+    email: "",
+    floor: "",
+  );
 }

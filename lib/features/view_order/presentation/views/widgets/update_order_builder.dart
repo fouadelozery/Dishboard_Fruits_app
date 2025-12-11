@@ -18,7 +18,7 @@ class UpdateOrderBuilder extends StatelessWidget {
             const SnackBar(
               content: Text("Order updated successfully"),
               backgroundColor: AppColors.primaryColor,
-              duration: Duration(milliseconds: 300),
+              duration: Duration(seconds: 20),
             ),
           );
         }
@@ -28,7 +28,7 @@ class UpdateOrderBuilder extends StatelessWidget {
             SnackBar(
               content: Text(state.errorMessage),
               backgroundColor: AppColors.primaryColor,
-              duration: Duration(milliseconds: 300),
+              duration: Duration(seconds: 20),
             ),
           );
         }

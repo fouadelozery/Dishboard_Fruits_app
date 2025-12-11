@@ -56,5 +56,6 @@ OrderEntity getDummyOrder() {
     orderProduct: orderProducts,
     payMethods: "online",
     status: OrderStatusEnum.accepted,
+    orderId: "2",
   );
 }

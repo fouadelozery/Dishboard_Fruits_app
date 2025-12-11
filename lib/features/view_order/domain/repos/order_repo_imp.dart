@@ -13,14 +13,19 @@ class OrderRepoImp implements OrderRepo {
   OrderRepoImp(this.databaseService);
 
   @override
+  @override
   Stream<Either<Failure, List<OrderEntity>>> fetchOrders() async* {
     try {
-      // Stream<Map> → List<Map<String, dynamic>>
-      await for (var result in databaseService.streamData(
+      await for (var data in databaseService.streamData(
         path: Endpoint.getOrders,
       )) {
-        final orders = result
-            .map((json) => OrderModel.fromJson(json).toEntity())
+        final list = data as List<dynamic>;
+
+        final orders = list
+            .map(
+              (item) =>
+                  OrderModel.fromJson(item as Map<String, dynamic>).toEntity(),
+            )
             .toList();
 
         yield Right(orders);
@@ -36,12 +41,11 @@ class OrderRepoImp implements OrderRepo {
     required String orderId,
   }) async {
     try {
+      // Safe update — creates document if it doesn't exist
       await databaseService.updataData(
         path: Endpoint.updateOrders,
         id: orderId,
-        data: {
-          "status": state.name, // saved as string: pending / completed ...
-        },
+        data: {"status": state.name},
       );
 
       return const Right(null);

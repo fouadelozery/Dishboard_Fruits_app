@@ -10,7 +10,7 @@ class OrderModel {
   final List<OrderProductModel> orderProduct;
   final String payMethods;
   final String status;
-  final String orderId; // ✔ Fixed naming
+  final String orderId;
 
   OrderModel({
     required this.price,
@@ -24,17 +24,19 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-      price: (json['price'] as num).toDouble(),
+      price: (json['price'] ?? 0).toDouble(),
       uId: json['uId'] ?? "",
       addressingShippingModel: AddressingShippingModel.fromJson(
         json['addressingShippingModel'],
       ),
-      orderProduct: (json['orderProduct'] as List)
-          .map((item) => OrderProductModel.fromJson(item))
-          .toList(),
+      orderProduct:
+          (json['orderProduct'] as List<dynamic>?)
+              ?.map((item) => OrderProductModel.fromJson(item))
+              .toList() ??
+          [],
       payMethods: json['payMethods'] ?? "",
       status: json['status'] ?? "pending",
-      orderId: json['orderId'] ?? "", // ✔ Added
+      orderId: json['orderId'] ?? "",
     );
   }
 
@@ -43,7 +45,7 @@ class OrderModel {
       'price': price,
       'uId': uId,
       'status': status,
-      'orderId': orderId, // ✔ Added
+      'orderId': orderId,
       'addressingShippingModel': addressingShippingModel.toJson(),
       'orderProduct': orderProduct.map((p) => p.toJson()).toList(),
       'payMethods': payMethods,
@@ -57,7 +59,7 @@ class OrderModel {
       addressingShippingEntity: addressingShippingModel.toEntity(),
       orderProduct: orderProduct.map((p) => p.toEntity()).toList(),
       payMethods: payMethods,
-      orderId: orderId, // ✔ Added
+      orderId: orderId,
       status: OrderStatusEnum.values.firstWhere(
         (e) => e.name == status,
         orElse: () => OrderStatusEnum.pending,

@@ -24,6 +24,7 @@ class OrderView extends StatelessWidget {
         ),
       ],
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

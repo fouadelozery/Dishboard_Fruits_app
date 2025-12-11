@@ -6,29 +6,34 @@ class OrderButton extends StatelessWidget {
     super.key,
     required this.onAccept,
     required this.onReject,
+    required this.isVisible,
   });
 
   final VoidCallback onAccept;
   final VoidCallback onReject;
+  final bool isVisible;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildButton(
-          title: "Accept",
-          color: Colors.green,
-          textColor: Colors.white,
-          onTap: onAccept,
-        ),
-        _buildButton(
-          title: "Reject",
-          color: Colors.red,
-          textColor: Colors.white,
-          onTap: onReject,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _buildButton(
+            title: "Accept",
+            color: AppColors.primaryColor,
+            textColor: AppColors.primaryColor,
+            onTap: onAccept,
+          ),
+          _buildButton(
+            title: "Reject",
+            color: Colors.red,
+            textColor: Colors.red,
+            onTap: onReject,
+          ),
+        ],
+      ),
     );
   }
 
@@ -38,19 +43,26 @@ class OrderButton extends StatelessWidget {
     required Color textColor,
     required VoidCallback onTap,
   }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color),
-        ),
-        child: Text(
-          title,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold),
+    return Visibility(
+      visible: isVisible,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+          decoration: BoxDecoration(
+            color: Colors.white, // WHITE BACKGROUND
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.white, width: 2), // COLORED BORDER
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
         ),
       ),
     );
